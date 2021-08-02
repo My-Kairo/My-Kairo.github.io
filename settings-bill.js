@@ -123,8 +123,8 @@ module.exports = function SettingsBill() {
     }
 
     function levelReached(){
-        if(returnLevels()){
-            return;
+        if(grandTotal() >= hasReachedCriticalLevel()){
+            return false;
         }
     }
 
