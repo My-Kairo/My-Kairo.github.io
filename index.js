@@ -6,7 +6,7 @@ const SettingsBill = require('./settings-bill');
 const app = express();
 const SettingsBil = SettingsBill();
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({defaultLayout: 'main',layoutsDir: 'views/layouts'}));
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
