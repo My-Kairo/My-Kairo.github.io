@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.get('/', function(req, res){ // this '/' means the default route
     res.render('index', {
         settings: SettingsBil.getSettings(),
-        totals: SettingsBil.totals()
+        totals: SettingsBil.totals(), level: SettingsBil.returnLevels()
     });
 });
 
@@ -29,7 +29,7 @@ app.post('/settings', function(req, res){
         callCost: req.body.callCost,
         smsCost: req.body.smsCost,
         warningLevel: req.body.warningLevel,
-        criticalLevel: req.body.warningLevel
+        criticalLevel: req.body.criticalLevel
     });
     console.log(SettingsBil.getSettings());
     res.redirect('/');

@@ -111,6 +111,23 @@ module.exports = function SettingsBill() {
         return total >= criticalLevel;
     }
 
+    function returnLevels(){
+        if(hasReachedCriticalLevel()){
+            return "danger";
+        }else if(hasReachedWarningLevel()){
+            return "warning";
+        }else{
+            return "none";
+        }
+
+    }
+
+    function levelReached(){
+        if(returnLevels()){
+            return;
+        }
+    }
+
     return {
         setSettings,
         getSettings,
@@ -119,6 +136,8 @@ module.exports = function SettingsBill() {
         actionsFor,
         totals,
         hasReachedWarningLevel,
-        hasReachedCriticalLevel
+        hasReachedCriticalLevel,
+        returnLevels,
+        levelReached
     }
 }
