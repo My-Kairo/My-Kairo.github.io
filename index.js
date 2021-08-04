@@ -3,6 +3,10 @@ const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill');
 
+
+// use moments for timestamp and use function fromnow
+// round off to two decimal point
+
 const app = express();
 const SettingsBil = SettingsBill();
 
