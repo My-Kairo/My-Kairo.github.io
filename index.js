@@ -2,7 +2,8 @@ const express = require('express');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill');
-
+const moment = require('moment');
+moment().format();
 
 // use moments for timestamp and use function fromnow
 // round off to two decimal point
@@ -48,13 +49,24 @@ app.post('/action', function(req, res){
 });
 
 app.get('/actions', function(req, res){
-    res.render('actions', {actions: SettingsBil.actions()});
+    var actionList = SettingsBil.actions()
+    actionList.forEach(element => {
+       element.currentTime = moment(element.timestamp).fromNow() 
+    });
+    res.render('actions', {actions:actionList});
+
 })
 
 app.get('/actions/:actionType', function(req, res){
+
     const actionType = req.params.actionType;
-    res.render('actions', {actions: SettingsBil.actionsFor(actionType)});
+    var actionList = SettingsBil.actionsFor(actionType)
+    actionList.forEach(element => {
+       element.currentTime = moment(element.timestamp).fromNow() 
+    });
+    res.render('actions', {actions: actionList});
 });
+
 
 let PORT = process.env.PORT || 3011;
 

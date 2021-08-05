@@ -25,7 +25,9 @@ module.exports = function SettingsBill() {
     }
 
     function recordAction(action) {
+        if(!hasReachedCriticalLevel()){
 
+        
         let cost = 0;
         if (action === 'sms'){
             cost = smsCost;
@@ -33,12 +35,14 @@ module.exports = function SettingsBill() {
         else if (action === 'call'){
             cost = callCost;
         }
-
+        else return;
+    
         actionList.push({
             type: action,
             cost,
             timestamp: new Date()
         });
+    }
     }
 
     function actions(){
@@ -56,12 +60,16 @@ module.exports = function SettingsBill() {
                 // add the action to the list
                 filteredActions.push(action);
             }
+            else if(action.type !== type){
+                filteredActions.filter(action)
+            }
         }
 
         return filteredActions;
 
         // return actionList.filter((action) => action.type === type);
     }
+    
 
     function getTotal(type) {
         let total = 0;
@@ -87,14 +95,15 @@ module.exports = function SettingsBill() {
     function grandTotal() {
         return getTotal('sms') + getTotal('call');
     }
+    // console.log(grandTotal().toFixed(2));
 
     function totals() {
-        let smsTotal = getTotal('sms')
-        let callTotal = getTotal('call')
+        let smsTotal = getTotal('sms').toFixed(2)
+        let callTotal = getTotal('call').toFixed(2)
         return {
             smsTotal,
             callTotal,
-            grandTotal : grandTotal()
+            grandTotal : grandTotal().toFixed(2)
         }
     }
 
@@ -122,11 +131,11 @@ module.exports = function SettingsBill() {
 
     }
 
-    function levelReached(){
-        if(grandTotal() >= hasReachedCriticalLevel()){
-            return "none";
-        }
-    }
+    // function levelReached(){
+    //     if(grandTotal() >= hasReachedCriticalLevel()){
+    //         return;
+    //     }
+    // }
 
     return {
         setSettings,
@@ -137,7 +146,6 @@ module.exports = function SettingsBill() {
         totals,
         hasReachedWarningLevel,
         hasReachedCriticalLevel,
-        returnLevels,
-        levelReached
+        returnLevels
     }
 }
