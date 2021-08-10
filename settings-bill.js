@@ -1,7 +1,7 @@
 module.exports = function SettingsBill() {
 
-    let smsCost;
-    let callCost;
+    let smsCost = 0;
+    let callCost = 0;
     let warningLevel;
     let criticalLevel; 
 
@@ -59,9 +59,6 @@ module.exports = function SettingsBill() {
             if (action.type === type) {
                 // add the action to the list
                 filteredActions.push(action);
-            }
-            else if(action.type !== type){
-                filteredActions.filter(action)
             }
         }
 

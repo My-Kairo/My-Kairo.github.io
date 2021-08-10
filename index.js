@@ -60,10 +60,12 @@ app.get('/actions', function(req, res){
 app.get('/actions/:actionType', function(req, res){
 
     const actionType = req.params.actionType;
+    console.log(SettingsBil.actionsFor(actionList))
     var actionList = SettingsBil.actionsFor(actionType)
     actionList.forEach(element => {
        element.currentTime = moment(element.timestamp).fromNow() 
     });
+    
     res.render('actions', {actions: actionList});
 });
 
